@@ -49,10 +49,6 @@ const mostBlogs = blogs => {
 	}
 }
 
-// {
-//   author: "Edsger W. Dijkstra",
-//   likes: 17
-// }
 const mostLikes = blogs => {
 	const numLikesByAuthor = blogs.reduce(
 		(acc, blog) => {
