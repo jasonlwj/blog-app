@@ -77,6 +77,12 @@ describe('when performing a GET request...', () => {
 
 		expect(res.body).toHaveLength(initialBlogs.length)
 	})
+
+	test('blog has an id property', async () => {
+		const res = await api.get('/api/blogs')
+
+		expect(res.body[0].id).toBeDefined()
+	})
 })
 
 afterAll(() => {
