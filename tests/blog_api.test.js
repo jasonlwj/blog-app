@@ -94,7 +94,7 @@ describe('when performing a POST request...', () => {
 		expect(blogTitles).toContain('React patterns')
 	})
 
-	test('the likes default to 0 if not specified', async () => {
+	test('the \'likes\' property defaults to 0 if not specified', async () => {
 		const newBlog = {
 			title: 'React patterns',
 			author: 'Michael Chan',
@@ -108,6 +108,22 @@ describe('when performing a POST request...', () => {
 			.expect('Content-Type', /application\/json/)
 
 		expect(res.body.likes).toBe(0)
+	})
+
+	test('blog without a title and url is not added', async () => {
+		const newBlog = {
+			author: 'Michael Chan',
+			likes: 7
+		}
+
+		await api
+			.post('/api/blogs')
+			.send(newBlog)
+			.expect(400)
+			.expect('Content-Type', /application\/json/)
+
+		const blogsAfterOperation = await blogsInDb()
+		expect(blogsAfterOperation).toHaveLength(initialBlogs.length)
 	})
 })
 
