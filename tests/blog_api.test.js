@@ -93,6 +93,22 @@ describe('when performing a POST request...', () => {
 		expect(blogsAfterOperation).toHaveLength(initialBlogs.length + 1)
 		expect(blogTitles).toContain('React patterns')
 	})
+
+	test('the likes default to 0 if not specified', async () => {
+		const newBlog = {
+			title: 'React patterns',
+			author: 'Michael Chan',
+			url: 'https://reactpatterns.com/'
+		}
+
+		const res = await api
+			.post('/api/blogs')
+			.send(newBlog)
+			.expect(201)
+			.expect('Content-Type', /application\/json/)
+
+		expect(res.body.likes).toBe(0)
+	})
 })
 
 afterAll(() => {
