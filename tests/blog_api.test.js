@@ -127,6 +127,22 @@ describe('when performing a POST request...', () => {
 	})
 })
 
+describe('when performing a DELETE request...', () => {
+	test('a blog can be deleted', async () => {
+		const blogsAtStart = await blogsInDb()
+		const blogToDelete = blogsAtStart[0]
+
+		await api
+			.delete(`/api/blogs/${blogToDelete.id}`)
+			.expect(204)
+		
+		const blogsAfterOperation = await blogsInDb()
+		const blogTitles = blogsAfterOperation.map(blog => blog.title)
+
+		expect(blogTitles).not.toContain(blogToDelete.title)
+	})
+})
+
 afterAll(() => {
 	mongoose.connection.close()
 })
