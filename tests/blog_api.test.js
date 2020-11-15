@@ -143,6 +143,26 @@ describe('when performing a DELETE request...', () => {
 	})
 })
 
+describe('when performing a PUT request...', () => {
+	test('a blog can be updated', async () => {
+		const blogsAtStart = await blogsInDb()
+		const blogToUpdate = blogsAtStart[0]
+
+		const updatedBlog = {
+			likes: 99
+		}
+
+		await api
+			.put(`/api/blogs/${blogToUpdate.id}`)
+			.send(updatedBlog)
+			.expect(200)
+		
+		const blogAfterOperation = await Blog.findById(blogToUpdate.id)
+		expect(blogAfterOperation.likes).toBe(99)
+	})
+
+})
+
 afterAll(() => {
 	mongoose.connection.close()
 })
