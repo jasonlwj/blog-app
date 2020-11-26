@@ -27,16 +27,14 @@ const errorHandler = (err, req, res, next) => {
 }
 
 const tokenExtractor = (req, res, next) => {
-	if (req.method === 'POST') {
-		const authorization = req.get('authorization')
-	
-		const token = (authorization && authorization.toLowerCase().startsWith('bearer '))
-			? authorization.substring(7)
-			: null
-	
-		req.token = token
-	}
-	
+	const authorization = req.get('authorization')
+
+	const token = (authorization && authorization.toLowerCase().startsWith('bearer '))
+		? authorization.substring(7)
+		: null
+
+	req.token = token
+
 	next()
 }
 
