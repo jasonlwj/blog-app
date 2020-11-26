@@ -4,7 +4,7 @@ const app = require('../app')
 const api = supertest(app)
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
-const helper = require('./test_helper')
+const helper = require('./helpers/test_helper')
 
 describe('when creating a new user', () => {
 	beforeEach(async() => {
